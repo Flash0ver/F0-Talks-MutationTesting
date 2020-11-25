@@ -14,8 +14,8 @@
     "project-file": "F0.Talks.MutationTesting.csproj",
     "max-concurrent-test-runners": 4,
     "threshold-high": 100,
-    "threshold-low": 95,
-    "threshold-break": 90,
+    "threshold-low": 90,
+    "threshold-break": 80,
     "excluded-mutations": [
       "logical"
     ],
