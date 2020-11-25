@@ -1,0 +1,22 @@
+﻿root = true
+
+[*]
+insert_final_newline = true
+
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.ps1]
+indent_style = space
+indent_size = 4
+
+[*.cs]
+indent_style = tab
+indent_size = 4
+
+csharp_style_var_elsewhere = false:silent
+csharp_style_var_for_built_in_types = false:silent
+csharp_style_var_when_type_is_apparent = true:silent
+
+dotnet_sort_system_directives_first = true

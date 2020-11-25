@@ -1,0 +1,38 @@
+{
+  "stryker-config":
+  {
+    "test-runner": "vstest",
+    "timeout-ms": 10000,
+    "reporters": [
+      "dots",
+      "cleartext",
+      "json",
+      "html"
+    ],
+    "log-level": "info",
+    "log-file": true,
+    "project-file": "F0.Talks.MutationTesting.csproj",
+    "max-concurrent-test-runners": 4,
+    "threshold-high": 100,
+    "threshold-low": 95,
+    "threshold-break": 90,
+    "excluded-mutations": [
+      "logical"
+    ],
+    "mutate": [
+      "!Exceptions/Thrower.cs",
+      "!**/*Throw*.cs"
+    ],
+    "ignore-methods": [
+      "ToString",
+      "*HashCode*",
+      "ConfigureAwait",
+      "NegativeNumberException.ctor",
+      "*Exception.ctor"
+    ],
+    "coverage-analysis": "perTest",
+    "abort-test-on-fail": true,
+    "diff": false,
+    "git-source": "main"
+  }
+}
