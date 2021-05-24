@@ -13,18 +13,18 @@ $TestProject = Join-Path -Path $RepositoryRootPath -ChildPath 'demo' -Additional
 $ProjectReference = (Split-Path -Path $TestProject -Leaf).Replace('.Tests.csproj', '.csproj');
 $TestProject = "['$($TestProject.Replace('\', '/'))']"
 $ConfigurationFile = Join-Path -Path $RepositoryRootPath -ChildPath 'demo' -AdditionalChildPath 'stryker-config.json'
-$OutputDirectory = Join-Path -Path $RepositoryRootPath -ChildPath 'demo' -AdditionalChildPath 'TestResults'
+$SolutionDirectory = Join-Path -Path $RepositoryRootPath -ChildPath 'demo'
 
 $Location = Get-Location
 
-Set-Location -Path $OutputDirectory
+Set-Location -Path $SolutionDirectory
 
 dotnet tool run dotnet-stryker --solution-path $Solution --test-projects $TestProject --project-file $ProjectReference --config-file-path $ConfigurationFile
 
 Set-Location -Path $Location
 
 if ($OpenReport) {
-    $ReportDirectory = Join-Path -Path $OutputDirectory -ChildPath 'StrykerOutput'
+    $ReportDirectory = Join-Path -Path $SolutionDirectory -ChildPath 'StrykerOutput'
     $ReportFile = Get-ChildItem -Path $ReportDirectory -Directory | Sort-Object -Property Name -Descending | Select-Object -First 1
     $ReportFile = Join-Path -Path $ReportFile -ChildPath 'reports' -AdditionalChildPath 'mutation-report.html'
     Invoke-Item -Path $ReportFile

@@ -9,13 +9,13 @@
       ]
     },
     "dotnet-reportgenerator-globaltool": {
-      "version": "4.8.1",
+      "version": "4.8.8",
       "commands": [
         "reportgenerator"
       ]
     },
     "dotnet-stryker": {
-      "version": "0.20.0",
+      "version": "0.22.4",
       "commands": [
         "dotnet-stryker"
       ]

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ namespace F0.Talks.MutationTesting.Text
 
 			static IEnumerable<string> EnumerateFizzBuzz(IEnumerable<int> numbers)
 			{
+				Debug.Assert(numbers != null);
+
 				foreach (int integer in numbers)
 				{
 					bool isFizz = integer % 3 == 0;

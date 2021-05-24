@@ -1,8 +1,6 @@
 {
   "stryker-config":
   {
-    "test-runner": "vstest",
-    "timeout-ms": 10000,
     "reporters": [
       "dots",
       "cleartext",
@@ -11,21 +9,27 @@
     ],
     "log-level": "info",
     "log-file": true,
+    "timeout-ms": 10000,
+    "solution-path": "F0.Talks.MutationTesting.sln",
     "project-file": "F0.Talks.MutationTesting.csproj",
+    "test-projects": null,
     "max-concurrent-test-runners": 4,
     "threshold-high": 100,
     "threshold-low": 90,
     "threshold-break": 80,
-    "excluded-mutations": [
-      "logical"
-    ],
+    "mutation-level": "Standard",
     "mutate": [
       "!Exceptions/Thrower.cs",
       "!**/*Throw*.cs"
     ],
+    "excluded-mutations": [
+      "logical"
+    ],
     "ignore-methods": [
+      "*Log*",
       "ToString",
       "*HashCode*",
+      "Assert",
       "ConfigureAwait",
       "NegativeNumberException.ctor",
       "*Exception.ctor"
@@ -33,6 +37,7 @@
     "coverage-analysis": "perTest",
     "abort-test-on-fail": true,
     "diff": false,
-    "git-source": "main"
+    "diff-ignore-files": [],
+    "git-diff-target": "main"
   }
 }
