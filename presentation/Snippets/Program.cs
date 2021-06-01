@@ -18,19 +18,19 @@ namespace Snippets
 			switch (region)
 			{
 				case "MutationTesting_Add":
-					MutationTesting.Add();
+					MutationTesting.Add_Test();
 					break;
 				case "MutationTesting_Subtract":
-					MutationTesting.Subtract();
+					MutationTesting.Subtract_Test();
 					break;
 				case "MutationTesting_Multiply":
-					MutationTesting.Multiply();
+					MutationTesting.Multiply_Test();
 					break;
 				case "MutationTesting_Divide":
-					MutationTesting.Divide();
+					MutationTesting.Divide_Test();
 					break;
 				case "MutationTesting_Equality":
-					MutationTesting.Equality();
+					MutationTesting.Equality_Test();
 					break;
 				case "Q_A":
 					QuestionAndAnswer.PrintMotto();

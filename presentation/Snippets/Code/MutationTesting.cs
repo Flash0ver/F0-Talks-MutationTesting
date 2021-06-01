@@ -2,71 +2,76 @@
 {
 	internal static class MutationTesting
 	{
-		public static void Add()
+		#region MutationTesting_Add
+		public static int Add(int left, int right)
 		{
-			#region MutationTesting_Add
+			return left + right;
+		}
+
+		[Test]
+		public static void Add_Test()
+		{
 			int number = Add(1, 2);
 			Check.That(number).Equal(3);
+		}
+		#endregion
 
-			int Add(int left, int right)
-			{
-				return left + right;
-			}
-			#endregion
+		#region MutationTesting_Subtract
+		public static int Subtract(int left, int right)
+		{
+			return left - right;
 		}
 
-		public static void Subtract()
+		[Test]
+		public static void Subtract_Test()
 		{
-			#region MutationTesting_Subtract
 			int number = Subtract(3, 2);
 			Check.That(number).Equal(1);
+		}
+		#endregion
 
-			int Subtract(int left, int right)
-			{
-				return left - right;
-			}
-			#endregion
+		#region MutationTesting_Multiply
+		public static int Multiply(int left, int right)
+		{
+			return left * right;
 		}
 
-		public static void Multiply()
+		[Test]
+		public static void Multiply_Test()
 		{
-			#region MutationTesting_Multiply
 			int number = Multiply(2, 3);
 			Check.That(number).Equal(6);
+		}
+		#endregion
 
-			int Multiply(int left, int right)
-			{
-				return left * right;
-			}
-			#endregion
+		#region MutationTesting_Divide
+		public static int Divide(int left, int right)
+		{
+			return left / right;
 		}
 
-		public static void Divide()
+		[Test]
+		public static void Divide_Test()
 		{
-			#region MutationTesting_Divide
 			int number = Divide(6, 3);
 			Check.That(number).Equal(2);
+		}
+		#endregion
 
-			int Divide(int left, int right)
-			{
-				return left / right;
-			}
-			#endregion
+		#region MutationTesting_Equality
+		public static bool IsOneDigit(int number)
+		{
+			return -9 <= number && number <= 9;
 		}
 
-		public static void Equality()
+		[Test]
+		public static void Equality_Test()
 		{
-			#region MutationTesting_Equality
 			Check.That(IsOneDigit(9)).IsTrue();
 			Check.That(IsOneDigit(10)).IsFalse();
 			Check.That(IsOneDigit(-9)).IsTrue();
 			Check.That(IsOneDigit(-10)).IsFalse();
-
-			bool IsOneDigit(int number)
-			{
-				return -9 <= number && number <= 9;
-			}
-			#endregion
 		}
+		#endregion
 	}
 }

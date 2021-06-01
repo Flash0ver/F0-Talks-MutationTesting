@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param (
-    [Parameter()]
+    [Parameter(Mandatory=$false)]
     [switch]$OpenReport
 )
 
