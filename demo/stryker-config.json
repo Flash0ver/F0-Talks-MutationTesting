@@ -10,6 +10,7 @@
     "log-level": "info",
     "log-file": true,
     "timeout-ms": 10000,
+    "solution-path": "F0.Talks.MutationTesting.sln",
     "project-file": "F0.Talks.MutationTesting.csproj",
     "test-projects": null,
     "max-concurrent-test-runners": 4,

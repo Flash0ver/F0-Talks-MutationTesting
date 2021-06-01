@@ -13,6 +13,8 @@ pr:
 
 variables:
   DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
   Solution_File: $(System.DefaultWorkingDirectory)/demo/F0.Talks.MutationTesting.sln
   NuGet_Configuration_File: $(System.DefaultWorkingDirectory)/nuget.config
   Build_Configuration: 'Release'
@@ -21,7 +23,7 @@ jobs:
 - job: unit_tests
   displayName: Unit Tests
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-20.04'
 
   steps:
   - checkout: self
@@ -57,7 +59,7 @@ jobs:
 - job: code_coverage
   displayName: Code Coverage
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-20.04'
 
   variables:
     Test_Settings_File: $(System.DefaultWorkingDirectory)/demo/test.runsettings
@@ -102,10 +104,10 @@ jobs:
 - job: mutation_testing
   displayName: Mutation Testing
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-20.04'
 
   variables:
-    Test_Project_Directory: $(System.DefaultWorkingDirectory)/demo/F0.Talks.MutationTesting.Tests
+    Test_Project_Directory: $(System.DefaultWorkingDirectory)/demo
     Stryker_Configuration_File: $(System.DefaultWorkingDirectory)/demo/stryker-config.json
 
   steps:
