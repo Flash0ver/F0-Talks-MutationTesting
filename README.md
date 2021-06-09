@@ -5,6 +5,7 @@ My talk on mutation testing in .NET (C#).
 
 ### 2021-05-24: .NET Notts
 - [Meetup page](https://www.meetup.com/dotnetnotts/events/277818668/)
+- Recording not (yet) available
 
 ### 2020-11-25: .NET South West
 - [Meetup page](https://www.meetup.com/dotnetsouthwest/events/273278637/)
