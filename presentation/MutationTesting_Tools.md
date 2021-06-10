@@ -5,6 +5,7 @@
 * [VisualMutator](https://visualmutator.github.io/web/)
 * [Fettle](https://github.com/ComparetheMarket/fettle)
 * [Testura](https://github.com/Testura/Testura.Mutation)
+* [Faultify](https://github.com/Faultify/Faultify)
 * [Stryker.NET](https://github.com/stryker-mutator/stryker-net) / [Stryker](https://stryker-mutator.io/)
 
 ---
