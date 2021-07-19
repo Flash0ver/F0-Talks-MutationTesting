@@ -3,6 +3,9 @@ My talk on mutation testing in .NET (C#).
 
 ## Let none survive! - How to test our unit tests with mutation testing
 
+### 2021-06-18: The Unhandled Exception Podcast
+- [Episode 18: Mutation Testing in .NET](https://unhandledexceptionpodcast.com/posts/0018-mutationtesting/)
+
 ### 2021-05-24: .NET Notts
 - [Meetup page](https://www.meetup.com/dotnetnotts/events/277818668/)
 - Recording not (yet) available
