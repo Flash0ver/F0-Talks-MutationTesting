@@ -1,4 +1,7 @@
-﻿namespace Snippets.Code
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Snippets.Code
 {
 	internal static class MutationTesting
 	{
@@ -71,6 +74,20 @@
 			Check.That(IsOneDigit(10)).IsFalse();
 			Check.That(IsOneDigit(-9)).IsTrue();
 			Check.That(IsOneDigit(-10)).IsFalse();
+		}
+		#endregion
+
+		#region MutationTesting_Linq
+		public static bool AreEven(IEnumerable<int> numbers)
+		{
+			return numbers.All(number => number % 2 == 0);
+		}
+
+		[Test]
+		public static void Linq_Test()
+		{
+			Check.That(AreEven(new int[] { 2, 4 })).IsTrue();
+			Check.That(AreEven(Enumerable.Range(2, 3))).IsFalse();
 		}
 		#endregion
 	}

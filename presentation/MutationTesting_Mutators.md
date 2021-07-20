@@ -17,6 +17,9 @@
 ```cs --project ./Snippets/Snippets.csproj --source-file ./Snippets/Code/MutationTesting.cs --region MutationTesting_Equality
 ```
 
+```cs --project ./Snippets/Snippets.csproj --source-file ./Snippets/Code/MutationTesting.cs --region MutationTesting_Linq
+```
+
 [Stryker.NET Mutators](https://github.com/stryker-mutator/stryker-net/blob/master/docs/Mutators.md)
 
 ---

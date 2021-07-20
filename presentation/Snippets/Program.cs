@@ -32,6 +32,9 @@ namespace Snippets
 				case "MutationTesting_Equality":
 					MutationTesting.Equality_Test();
 					break;
+				case "MutationTesting_Linq":
+					MutationTesting.Linq_Test();
+					break;
 				case "Q_A":
 					QuestionAndAnswer.PrintMotto();
 					break;
