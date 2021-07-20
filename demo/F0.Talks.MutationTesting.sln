@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F0.Talks.MutationTesting", "F0.Talks.MutationTesting\F0.Talks.MutationTesting.csproj", "{641CE307-0B3A-465A-AD2F-7A16CC54DEBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F0.Talks.MutationTesting.Tests", "F0.Talks.MutationTesting.Tests\F0.Talks.MutationTesting.Tests.csproj", "{959DB8AB-A133-43A5-A21E-625903B5C417}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F0.Talks.MutationTesting.Tests", "F0.Talks.MutationTesting.Tests\F0.Talks.MutationTesting.Tests.csproj", "{959DB8AB-A133-43A5-A21E-625903B5C417}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F0.Talks.MutationTesting.FaultInjector", "F0.Talks.MutationTesting.FaultInjector\F0.Talks.MutationTesting.FaultInjector.csproj", "{DAC837FD-36AF-42B6-8990-DB6AC9A47B14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{959DB8AB-A133-43A5-A21E-625903B5C417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{959DB8AB-A133-43A5-A21E-625903B5C417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{959DB8AB-A133-43A5-A21E-625903B5C417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC837FD-36AF-42B6-8990-DB6AC9A47B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC837FD-36AF-42B6-8990-DB6AC9A47B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC837FD-36AF-42B6-8990-DB6AC9A47B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC837FD-36AF-42B6-8990-DB6AC9A47B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
