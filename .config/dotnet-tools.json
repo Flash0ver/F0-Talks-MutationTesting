@@ -19,6 +19,12 @@
       "commands": [
         "dotnet-stryker"
       ]
+    },
+    "faultify": {
+      "version": "0.2.0",
+      "commands": [
+        "faultify"
+      ]
     }
   }
 }

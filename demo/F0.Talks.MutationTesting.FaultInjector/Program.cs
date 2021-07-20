@@ -21,6 +21,12 @@ namespace F0.Talks.MutationTesting.FaultInjector
 				? Path.Combine(parent, parent, parent, parent, "F0.Talks.MutationTesting.Tests", "Mathematics", "CalculatorTests.cs")
 				: Path.Combine(parent, "F0.Talks.MutationTesting.Tests", "Mathematics", "CalculatorTests.cs");
 
+			if (!File.Exists(production) || !File.Exists(test))
+			{
+				production = Path.Combine(parent, "demo", "F0.Talks.MutationTesting", "Mathematics", "Calculator.cs");
+				test = Path.Combine(parent, "demo", "F0.Talks.MutationTesting.Tests", "Mathematics", "CalculatorTests.cs");
+			}
+
 			Source source = await Source.CreateAsync(production, test);
 			Compiler compiler = await Compiler.CreateAsync(source);
 			await Runner.RunAsync(source, compiler);
