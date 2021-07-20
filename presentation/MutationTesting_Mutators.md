@@ -20,4 +20,4 @@
 [Stryker.NET Mutators](https://github.com/stryker-mutator/stryker-net/blob/master/docs/Mutators.md)
 
 ---
-###### [Tools](./MutationTesting_Tools.md)
+###### [How](./MutationTesting_Techniques.md)

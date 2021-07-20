@@ -1,6 +1,6 @@
 # Mutation Testing
 
-### What?
+## What?
 
 - small modifications to production code
   - each modified version is called a `mutant`
@@ -12,12 +12,5 @@
 A mutant survives if it is not covered by an assertion.
 **Kill all the mutants.**
 
-### Why?
-- support Test-driven development
-- Code Coverage vs Test Effectiveness
-
-### How?
-[Example](./MutationTesting_Mutators.md)
-
 ---
-###### [Mutators](./MutationTesting_Mutators.md)
+###### [Why](./MutationTesting_CodeCoverage.md)
