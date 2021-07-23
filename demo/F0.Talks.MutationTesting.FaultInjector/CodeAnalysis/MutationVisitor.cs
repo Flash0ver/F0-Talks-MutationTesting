@@ -15,19 +15,57 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 		{
 			if (node is BinaryExpressionSyntax binary)
 			{
-				if (binary.IsKind(SyntaxKind.AddExpression))
+				if (IsArithmetic(binary))
 				{
-					BinaryExpressionSyntax subtraction = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, binary.Left, binary.Right);
-					BinaryExpressionSyntax multiplication = SyntaxFactory.BinaryExpression(SyntaxKind.MultiplyExpression, binary.Left, binary.Right);
-					BinaryExpressionSyntax division = SyntaxFactory.BinaryExpression(SyntaxKind.DivideExpression, binary.Left, binary.Right);
-
-					AddMutation(binary, subtraction);
-					AddMutation(binary, multiplication);
-					AddMutation(binary, division);
+					AddArithmeticMutations(binary);
 				}
 			}
 
 			base.Visit(node);
+		}
+
+		private static bool IsArithmetic(BinaryExpressionSyntax binary)
+		{
+			return binary.Kind() is SyntaxKind.AddExpression or SyntaxKind.SubtractExpression or SyntaxKind.MultiplyExpression or SyntaxKind.DivideExpression or SyntaxKind.ModuloExpression;
+		}
+
+		private void AddArithmeticMutations(BinaryExpressionSyntax binary)
+		{
+			if (!binary.IsKind(SyntaxKind.AddExpression))
+			{
+				SyntaxToken operatorToken = SyntaxFactory.Token(SyntaxFactory.TriviaList(), SyntaxKind.PlusToken, SyntaxFactory.TriviaList(SyntaxFactory.Space));
+				BinaryExpressionSyntax addMutator = SyntaxFactory.BinaryExpression(SyntaxKind.AddExpression, binary.Left, operatorToken, binary.Right);
+
+				AddMutation(binary, addMutator);
+			}
+			if (!binary.IsKind(SyntaxKind.SubtractExpression))
+			{
+				SyntaxToken operatorToken = SyntaxFactory.Token(SyntaxFactory.TriviaList(), SyntaxKind.MinusToken, SyntaxFactory.TriviaList(SyntaxFactory.Space));
+				BinaryExpressionSyntax subtractMutator = SyntaxFactory.BinaryExpression(SyntaxKind.SubtractExpression, binary.Left, operatorToken, binary.Right);
+
+				AddMutation(binary, subtractMutator);
+			}
+			if (!binary.IsKind(SyntaxKind.MultiplyExpression))
+			{
+				SyntaxToken operatorToken = SyntaxFactory.Token(SyntaxFactory.TriviaList(), SyntaxKind.AsteriskToken, SyntaxFactory.TriviaList(SyntaxFactory.Space));
+				BinaryExpressionSyntax multiplyMutator = SyntaxFactory.BinaryExpression(SyntaxKind.MultiplyExpression, binary.Left, operatorToken, binary.Right);
+
+				AddMutation(binary, multiplyMutator);
+			}
+			if (!binary.IsKind(SyntaxKind.DivideExpression))
+			{
+				SyntaxToken operatorToken = SyntaxFactory.Token(SyntaxFactory.TriviaList(), SyntaxKind.SlashToken, SyntaxFactory.TriviaList(SyntaxFactory.Space));
+				BinaryExpressionSyntax divideMutator = SyntaxFactory.BinaryExpression(SyntaxKind.DivideExpression, binary.Left, operatorToken, binary.Right);
+
+				AddMutation(binary, divideMutator);
+			}
+			if (!binary.IsKind(SyntaxKind.ModuloExpression))
+			{
+				SyntaxToken operatorToken = SyntaxFactory.Token(SyntaxFactory.TriviaList(), SyntaxKind.PercentToken, SyntaxFactory.TriviaList(SyntaxFactory.Space));
+				BinaryExpressionSyntax moduloMutator = SyntaxFactory.BinaryExpression(SyntaxKind.ModuloExpression, binary.Left, operatorToken, binary.Right);
+
+				AddMutation(binary, moduloMutator);
+			}
 		}
 
 		private void AddMutation(SyntaxNode original, SyntaxNode mutated)

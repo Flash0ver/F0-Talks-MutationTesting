@@ -16,7 +16,7 @@ namespace F0.Talks.MutationTesting.Tests.Mathematics
 		[Fact]
 		public void Subtract()
 		{
-			double result = Calculator.Subtract(0x_F0, 0x_F0);
+			double result = Calculator.Subtract(2, 2);
 
 			Assert.Equal(0, result);
 		}
@@ -24,17 +24,17 @@ namespace F0.Talks.MutationTesting.Tests.Mathematics
 		[Fact]
 		public void Multiply()
 		{
-			double result = Calculator.Multiply(0x_F0, 2);
+			double result = Calculator.Multiply(2, 2);
 
-			Assert.Equal(480, result);
+			Assert.Equal(4, result);
 		}
 
 		[Fact]
 		public void Divide()
 		{
-			double result = Calculator.Divide(0x_F0, 10);
+			double result = Calculator.Divide(1, 1);
 
-			Assert.Equal(24, result);
+			Assert.Equal(1, result);
 		}
 
 		[Fact]
@@ -43,6 +43,14 @@ namespace F0.Talks.MutationTesting.Tests.Mathematics
 			double result = Calculator.Divide(0x_F0, 0);
 
 			Assert.Equal(double.NaN, result);
+		}
+
+		[Fact]
+		public void Remainder()
+		{
+			double result = Calculator.Remainder(2, 2);
+
+			Assert.Equal(0, result);
 		}
 	}
 }

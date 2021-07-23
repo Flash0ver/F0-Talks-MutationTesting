@@ -24,13 +24,19 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 		{
 			await InitialTestAsync(compiler);
 
-			IEnumerable<Mutation> mutants = await Mutator.MutateAsync(source.Production);
+			IReadOnlyCollection<Mutation> mutants = await Mutator.MutateAsync(source.Production);
+			int padding = mutants.Count.ToString().Length;
 
 			int i = 0;
-			foreach (Mutation mutant in mutants)
+			foreach (IGrouping<SyntaxNode, Mutation> group in mutants.GroupBy(mutant => mutant.OriginalNode))
 			{
-				await MutationTestAsync(compiler, i, mutant);
-				i++;
+				SyntaxNode mutated = group.Key;
+				AnsiConsole.MarkupLine($"[bold]{mutated}[/]");
+
+				foreach (Mutation mutant in group)
+				{
+					await MutationTestAsync(compiler, i++, mutant, padding);
+				}
 			}
 		}
 
@@ -51,7 +57,7 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 			context.Unload();
 		}
 
-		private static async Task MutationTestAsync(Compiler compiler, int id, Mutation mutant)
+		private static async Task MutationTestAsync(Compiler compiler, int id, Mutation mutant, int padding)
 		{
 			CSharpCompilation compilation = compiler.Compile(id, mutant.MutatedTree);
 
@@ -61,11 +67,11 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 			bool hasFailed = RunTest(assembly);
 			if (hasFailed)
 			{
-				AnsiConsole.MarkupLine($"Mutant [green]{mutant.OriginalNode}[/] -> [green]{mutant.MutatedNode}[/] killed.");
+				AnsiConsole.MarkupLine($"\t{id.ToString($"D{padding}")}: Mutant [green]{mutant.MutatedNode}[/] killed");
 			}
 			else
 			{
-				AnsiConsole.MarkupLine($"Mutant [red]{mutant.OriginalNode}[/] -> [red]{mutant.MutatedNode}[/] survived.");
+				AnsiConsole.MarkupLine($"\t{id.ToString($"D{padding}")}: Mutant [red]{mutant.MutatedNode}[/] survived");
 			}
 
 			context.Unload();
