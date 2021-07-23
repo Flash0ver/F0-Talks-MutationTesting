@@ -20,8 +20,8 @@ if ($DirectoryExists) {
     Remove-Item -Path $ReportDirectory -Recurse
 }
 
-New-Item -Path $SolutionDirectory -Name $DirectoryName -ItemType 'directory'
-New-Item -Path $ReportDirectory -Name $FileName -ItemType 'file' -Value $FileContent
+New-Item -Path $SolutionDirectory -Name $DirectoryName -ItemType 'directory' | Out-Null
+New-Item -Path $ReportDirectory -Name $FileName -ItemType 'file' -Value $FileContent | Out-Null
 
 dotnet tool run faultify --testProjectName $TestProject --reportPath $ReportDirectory --reportFormat html
 
