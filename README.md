@@ -3,6 +3,11 @@ My talk on mutation testing in .NET (C#).
 
 ## Let none survive! - How to test our unit tests with mutation testing
 
+### 2021-09-15: dotnetsheff
+- [Organizer site](https://dotnetsheff.co.uk/)
+- [Meetup page](https://www.meetup.com/dotnetsheff/events/279824630/)
+- [Recording](https://www.youtube.com/watch?v=ZdZJKp12hPI)
+
 ### 2021-07-20: .NET Oxford
 - [Organizer site](https://www.dotnetoxford.com/)
 - [Meetup page](https://www.meetup.com/dotnetoxford/events/278687647/)
