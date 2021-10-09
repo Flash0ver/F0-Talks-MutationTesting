@@ -22,11 +22,15 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 
 		public static async Task RunAsync(Source source, Compiler compiler)
 		{
-			await InitialTestAsync(compiler);
+			if (await InitialTestAsync(compiler))
+			{
+				return;
+			}
 
 			IReadOnlyCollection<Mutation> mutants = await Mutator.MutateAsync(source.Production);
 			int padding = mutants.Count.ToString().Length;
 
+			var report = new Report();
 			int i = 0;
 			foreach (IGrouping<SyntaxNode, Mutation> group in mutants.GroupBy(mutant => mutant.OriginalNode))
 			{
@@ -35,12 +39,16 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 
 				foreach (Mutation mutant in group)
 				{
-					await MutationTestAsync(compiler, i++, mutant, padding);
+					bool hasFailed = await MutationTestAsync(compiler, i++, mutant, padding);
+
+					report.Increment(hasFailed);
 				}
 			}
+
+			report.WriteToConsole();
 		}
 
-		private static async Task InitialTestAsync(Compiler compiler)
+		private static async Task<bool> InitialTestAsync(Compiler compiler)
 		{
 			CSharpCompilation compilation = compiler.Compile();
 
@@ -55,9 +63,11 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 			}
 
 			context.Unload();
+
+			return hasFailed;
 		}
 
-		private static async Task MutationTestAsync(Compiler compiler, int id, Mutation mutant, int padding)
+		private static async Task<bool> MutationTestAsync(Compiler compiler, int id, Mutation mutant, int padding)
 		{
 			CSharpCompilation compilation = compiler.Compile(id, mutant.MutatedTree);
 
@@ -75,6 +85,8 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 			}
 
 			context.Unload();
+
+			return hasFailed;
 		}
 
 		private static async Task<AssemblyLoadContext> EmitAssemblyAsync(CSharpCompilation compilation)
