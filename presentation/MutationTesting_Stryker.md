@@ -28,9 +28,9 @@ dotnet stryker --config-file-path ./stryker-config.json
 dotnet stryker --help
 ```
 
-### [Configuration](https://github.com/stryker-mutator/stryker-net/blob/master/docs/Configuration.md)
+### [Configuration](https://stryker-mutator.io/docs/stryker-net/Configuration)
 
-### [Reporters](https://github.com/stryker-mutator/stryker-net/blob/master/docs/Reporters.md)
+### [Reporters](https://stryker-mutator.io/docs/stryker-net/Reporters)
 
 #### Global and local tools
 - [Install a global tool](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-global-tool)

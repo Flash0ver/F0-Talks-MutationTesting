@@ -19,7 +19,7 @@ $Location = Get-Location
 
 Set-Location -Path $SolutionDirectory
 
-dotnet tool run dotnet-stryker --solution-path $Solution --test-projects $TestProject --project-file $ProjectReference --config-file-path $ConfigurationFile
+dotnet tool run dotnet-stryker --solution $Solution --project $ProjectReference --config-file $ConfigurationFile --log-to-file
 
 Set-Location -Path $Location
 

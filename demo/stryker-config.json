@@ -7,22 +7,23 @@
       "json",
       "html"
     ],
-    "log-level": "info",
-    "log-file": true,
-    "timeout-ms": 10000,
-    "solution-path": "F0.Talks.MutationTesting.sln",
-    "project-file": "F0.Talks.MutationTesting.csproj",
-    "test-projects": null,
-    "max-concurrent-test-runners": 4,
-    "threshold-high": 100,
-    "threshold-low": 90,
-    "threshold-break": 80,
+    "verbosity": "info",
+    "additional-timeout": 10000,
+    "solution": "F0.Talks.MutationTesting.sln",
+    "project": "F0.Talks.MutationTesting.csproj",
+    "test-projects": [ "F0.Talks.MutationTesting.Tests/F0.Talks.MutationTesting.Tests.csproj" ],
+    "concurrency": 4,
+    "thresholds": {
+      "high": 100,
+      "low": 90,
+      "break": 80
+    },
     "mutation-level": "Standard",
     "mutate": [
       "!Exceptions/Thrower.cs",
       "!**/*Throw*.cs"
     ],
-    "excluded-mutations": [
+    "ignore-mutations": [
       "logical"
     ],
     "ignore-methods": [
@@ -35,9 +36,11 @@
       "*Exception.ctor"
     ],
     "coverage-analysis": "perTest",
-    "abort-test-on-fail": true,
-    "diff": false,
-    "diff-ignore-files": [],
-    "git-diff-target": "main"
+    "disable-bail": false,
+    "since": {
+      "enabled": false,
+      "target": "main",
+      "ignore-changes-in": []
+    }
   }
 }

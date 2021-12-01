@@ -19,7 +19,6 @@
 * Stack Overflow: [FlashOver](https://stackoverflow.com/users/10167996/flashover)
 * LinkedIn: [Stefan Pölz](https://www.linkedin.com/in/stefan-pölz-068a271a1/)
 * Sessionize: [FlashOver](https://sessionize.com/FlashOver)
-* _dotnetsheff.slack.com_: `Stefan Pölz`
 
 ---
 ###### [TOC](./TOC.md)

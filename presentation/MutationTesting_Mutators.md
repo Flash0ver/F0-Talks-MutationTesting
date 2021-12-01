@@ -20,7 +20,7 @@
 ```cs --project ./Snippets/Snippets.csproj --source-file ./Snippets/Code/MutationTesting.cs --region MutationTesting_Linq
 ```
 
-[Stryker.NET Mutators](https://github.com/stryker-mutator/stryker-net/blob/master/docs/Mutators.md)
+[Stryker.NET Mutations](https://stryker-mutator.io/docs/stryker-net/mutations)
 
 ---
 ###### [How](./MutationTesting_Techniques.md)
