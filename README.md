@@ -3,6 +3,11 @@ My talk on mutation testing in .NET (C#).
 
 ## Let none survive! - How to test our unit tests with mutation testing
 
+### 2021-12-01: NDC Oslo 2021
+- Venue: _Oslo Spektrum_
+- [NDC Conferences](https://ndcconferences.com)
+- [NDC Oslo](https://ndcoslo.com)
+
 ### 2021-09-15: dotnetsheff
 - [Organizer site](https://dotnetsheff.co.uk/)
 - [Meetup page](https://www.meetup.com/dotnetsheff/events/279824630/)
@@ -20,7 +25,6 @@ My talk on mutation testing in .NET (C#).
 ### 2021-05-24: .NET Notts
 - [Organizer site](https://dotnetnotts.co.uk/)
 - [Meetup page](https://www.meetup.com/dotnetnotts/events/277818668/)
-- Recording not (yet) available
 
 ### 2020-11-25: .NET South West
 - [Meetup page](https://www.meetup.com/dotnetsouthwest/events/273278637/)
