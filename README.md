@@ -3,6 +3,11 @@ My talk on mutation testing in .NET (C#).
 
 ## Let none survive! - How to test our unit tests with mutation testing
 
+### 2022-08-16: DotNetDevs.at - Lightning Talks
+- [Organizer site](https://dotnetdevs.at/)
+- [Meetup page](https://www.meetup.com/dotnet-austria/events/287587456/)
+- [Recording](https://www.youtube.com/watch?v=upw9AOrKZH8&t=1956s)
+
 ### 2021-12-01: NDC Oslo 2021
 - Venue: _Oslo Spektrum_
 - [NDC Conferences](https://ndcconferences.com)
