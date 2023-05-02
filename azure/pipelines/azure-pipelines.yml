@@ -23,7 +23,7 @@ jobs:
 - job: unit_tests
   displayName: Unit Tests
   pool:
-    vmImage: 'ubuntu-20.04'
+    vmImage: 'ubuntu-22.04'
 
   steps:
   - checkout: self
@@ -59,7 +59,7 @@ jobs:
 - job: code_coverage
   displayName: Code Coverage
   pool:
-    vmImage: 'ubuntu-20.04'
+    vmImage: 'ubuntu-22.04'
 
   variables:
     Test_Settings_File: $(System.DefaultWorkingDirectory)/demo/test.runsettings
@@ -104,7 +104,7 @@ jobs:
 - job: mutation_testing
   displayName: Mutation Testing
   pool:
-    vmImage: 'ubuntu-20.04'
+    vmImage: 'ubuntu-22.04'
 
   variables:
     Test_Project_Directory: $(System.DefaultWorkingDirectory)/demo
@@ -133,7 +133,8 @@ jobs:
       custom: 'stryker'
       arguments: '--config-file-path $(Stryker_Configuration_File)'
       workingDirectory: '$(Test_Project_Directory)'
-  - task: PublishMutationReport@0
+  - task: PublishMutationReport@1
     displayName: Publish Mutation Test Report
     inputs:
       reportPattern: '**/mutation-report.html'
+      useReportFileName: false
