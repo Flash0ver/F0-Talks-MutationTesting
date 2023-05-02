@@ -7,7 +7,7 @@
 			return new LogicalChecker(actual);
 		}
 
-		public static EqualityChecker<T> That<T>(T actual)
+		public static EqualityChecker<T> That<T>(T actual) where T : notnull
 		{
 			return new EqualityChecker<T>(actual);
 		}

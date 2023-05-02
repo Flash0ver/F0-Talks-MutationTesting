@@ -2,7 +2,7 @@
 
 namespace Snippets.Code
 {
-	internal class EqualityChecker<T>
+	internal class EqualityChecker<T> where T : notnull
 	{
 		private readonly T actual;
 

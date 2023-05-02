@@ -8,11 +8,11 @@ namespace Snippets
 	public static class Program
 	{
 		private static void Main(
-			string region = null,
-			string session = null,
-			string package = null,
-			string project = null,
-			string[] args = null)
+			string? region = null,
+			string? session = null,
+			string? package = null,
+			string? project = null,
+			string[]? args = null)
 		{
 			#region Main
 			switch (region)
