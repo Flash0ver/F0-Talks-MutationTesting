@@ -2,9 +2,9 @@ name: GitHub Actions
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 env:
   DOTNET_NOLOGO: true
@@ -15,7 +15,7 @@ env:
 jobs:
   verify_markdown:
     name: Verify Markdown files
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     env:
       NuGet_Configuration_File: ./nuget.config
@@ -23,13 +23,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2.3.4
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v1.8.0
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v1.8.0
+      uses: actions/checkout@v3.5.2
+    - name: Setup .NET SDKs
+      uses: actions/setup-dotnet@v3.0.3
       with:
-        dotnet-version: 3.1.426
+        dotnet-version: '3.1.426'
+        global-json-file: 'global.json'
     - name: Install .NET local tools
       run: dotnet tool restore --configfile ${{ env.NuGet_Configuration_File }}
     - name: Verify interactive project
