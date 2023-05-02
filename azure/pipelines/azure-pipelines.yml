@@ -96,9 +96,10 @@ jobs:
       command: 'test'
       arguments: '$(Solution_File) --collect:"XPlat Code Coverage" --nologo --no-restore --results-directory $(Test_Results_Directory) --settings $(Test_Settings_File)'
       publishTestResults: false
-  - task: PublishCodeCoverageResults@2
+  - task: PublishCodeCoverageResults@1
     displayName: Publish code coverage report
     inputs:
+      codeCoverageTool: 'Cobertura'
       summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
       failIfCoverageEmpty: true
 
