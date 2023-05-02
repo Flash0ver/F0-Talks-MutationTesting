@@ -46,7 +46,7 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 
 		private static async Task<ImmutableArray<MetadataReference>> CreateReferenceAssembliesAsync()
 		{
-			ReferenceAssemblies referenceAssemblies = ReferenceAssemblies.Net.Net50;
+			ReferenceAssemblies referenceAssemblies = ReferenceAssemblies.Net.Net60;
 
 			ImmutableArray<MetadataReference> references = await referenceAssemblies.ResolveAsync(LanguageNames.CSharp, CancellationToken.None);
 

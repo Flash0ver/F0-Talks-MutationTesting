@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -70,7 +71,7 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 
 		private void AddMutation(SyntaxNode original, SyntaxNode mutated)
 		{
-			SyntaxNode node = original.SyntaxTree.GetRoot().ReplaceNode(original, mutated);
+			SyntaxNode node = original.SyntaxTree.GetRoot(CancellationToken.None).ReplaceNode(original, mutated);
 
 			var mutation = new Mutation(original, original.SyntaxTree, mutated, node.SyntaxTree);
 			mutations.Add(mutation);

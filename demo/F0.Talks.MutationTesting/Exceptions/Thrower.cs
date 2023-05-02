@@ -6,7 +6,7 @@ namespace F0.Talks.MutationTesting.Exceptions
 	{
 		public static void Throw(Exception exception)
 		{
-			if (exception == null)
+			if (exception is null)
 			{
 				throw new ArgumentNullException(nameof(exception));
 			}

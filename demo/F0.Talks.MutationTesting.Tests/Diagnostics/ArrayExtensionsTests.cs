@@ -26,6 +26,7 @@ namespace F0.Talks.MutationTesting.Tests.Diagnostics
 
 			Assert.NotNull(array);
 			Assert.Equal(1, array.Rank);
+			Assert.Empty(array);
 		}
 	}
 }

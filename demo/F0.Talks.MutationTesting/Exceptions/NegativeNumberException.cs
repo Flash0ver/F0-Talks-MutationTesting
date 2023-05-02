@@ -3,8 +3,7 @@ using System.Runtime.Serialization;
 
 namespace F0.Talks.MutationTesting.Exceptions
 {
-	[Serializable]
-	public class NegativeNumberException : Exception
+	public partial class NegativeNumberException : Exception
 	{
 		public NegativeNumberException()
 			: base("A number was negative.")
@@ -34,7 +33,11 @@ namespace F0.Talks.MutationTesting.Exceptions
 		}
 
 		public int? Number { get; }
+	}
 
+	[Serializable]
+	public partial class NegativeNumberException : Exception
+	{
 		protected NegativeNumberException(SerializationInfo info, StreamingContext context)
 			: base(info, context)
 		{

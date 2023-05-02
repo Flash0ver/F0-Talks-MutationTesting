@@ -10,27 +10,27 @@ namespace F0.Talks.MutationTesting.Tests.Text
 		[Fact]
 		public void GetFizzBuzz_CountIsLessThanZero_Throws()
 		{
-			Assert.Throws<ArgumentOutOfRangeException>("count", () => FizzBuzzBuilder.GetFizzBuzz(0, -1));
+			Assert.Throws<ArgumentOutOfRangeException>("count", static () => FizzBuzzBuilder.GetFizzBuzz(0, -1));
 		}
 
 		[Fact]
 		public void EnumerateFizzBuzz_CountIsLessThanZero_ThrowsImmediately()
 		{
-			Assert.Throws<ArgumentOutOfRangeException>("count", () => FizzBuzzBuilder.EnumerateFizzBuzz(0, -1));
+			Assert.Throws<ArgumentOutOfRangeException>("count", static () => FizzBuzzBuilder.EnumerateFizzBuzz(0, -1));
 		}
 
 		[Fact]
 		public void GetFizzBuzz_StartPlusCountMinusOneIsLargerThanMaxValue_Throws()
 		{
-			Assert.Throws<ArgumentOutOfRangeException>("count", () => FizzBuzzBuilder.GetFizzBuzz(int.MaxValue, 2));
-			Assert.Throws<ArgumentOutOfRangeException>("count", () => FizzBuzzBuilder.GetFizzBuzz(2, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>("count", static () => FizzBuzzBuilder.GetFizzBuzz(int.MaxValue, 2));
+			Assert.Throws<ArgumentOutOfRangeException>("count", static () => FizzBuzzBuilder.GetFizzBuzz(2, int.MaxValue));
 		}
 
 		[Fact]
 		public void EnumerateFizzBuzz_StartPlusCountMinusOneIsLargerThanMaxValue_ThrowsImmediately()
 		{
-			Assert.Throws<ArgumentOutOfRangeException>("count", () => FizzBuzzBuilder.EnumerateFizzBuzz(int.MaxValue, 2));
-			Assert.Throws<ArgumentOutOfRangeException>("count", () => FizzBuzzBuilder.EnumerateFizzBuzz(2, int.MaxValue));
+			Assert.Throws<ArgumentOutOfRangeException>("count", static () => FizzBuzzBuilder.EnumerateFizzBuzz(int.MaxValue, 2));
+			Assert.Throws<ArgumentOutOfRangeException>("count", static () => FizzBuzzBuilder.EnumerateFizzBuzz(2, int.MaxValue));
 		}
 
 		[Theory(Skip = "demo")]

@@ -32,7 +32,7 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 
 			var report = new Report();
 			int i = 0;
-			foreach (IGrouping<SyntaxNode, Mutation> group in mutants.GroupBy(mutant => mutant.OriginalNode))
+			foreach (IGrouping<SyntaxNode, Mutation> group in mutants.GroupBy(static mutant => mutant.OriginalNode))
 			{
 				SyntaxNode mutated = group.Key;
 				AnsiConsole.MarkupLine($"[bold]{mutated}[/]");
@@ -107,7 +107,7 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 				else
 				{
 					IEnumerable<Diagnostic> diagnostics = result.Diagnostics
-						.Where(diagnostic => diagnostic.Severity is not DiagnosticSeverity.Hidden);
+						.Where(static diagnostic => diagnostic.Severity is not DiagnosticSeverity.Hidden);
 
 					Table table = new Table()
 						.AddColumn("")
@@ -146,7 +146,7 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
 			Debug.Assert(instance is not null);
 
 			IEnumerable<MethodInfo> methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public);
-			IEnumerable<MethodInfo> tests = methods.Where(method => method.CustomAttributes.Any(attribute => attribute.AttributeType == fact));
+			IEnumerable<MethodInfo> tests = methods.Where(static method => method.CustomAttributes.Any(static attribute => attribute.AttributeType == fact));
 
 			bool hasFailed = false;
 
