@@ -55,6 +55,8 @@ jobs:
       testResultsFormat: 'VSTest'
       testResultsFiles: '**/*.trx'
       mergeTestResults: true
+      failTaskOnFailedTests: false
+      publishRunAttachments: true
 
 - job: code_coverage
   displayName: Code Coverage
@@ -94,10 +96,9 @@ jobs:
       command: 'test'
       arguments: '$(Solution_File) --collect:"XPlat Code Coverage" --nologo --no-restore --results-directory $(Test_Results_Directory) --settings $(Test_Settings_File)'
       publishTestResults: false
-  - task: PublishCodeCoverageResults@1
+  - task: PublishCodeCoverageResults@2
     displayName: Publish code coverage report
     inputs:
-      codeCoverageTool: 'Cobertura'
       summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
       failIfCoverageEmpty: true
 
@@ -131,7 +132,7 @@ jobs:
     inputs:
       command: 'custom'
       custom: 'stryker'
-      arguments: '--config-file-path $(Stryker_Configuration_File)'
+      arguments: '--config-file $(Stryker_Configuration_File)'
       workingDirectory: '$(Test_Project_Directory)'
   - task: PublishMutationReport@1
     displayName: Publish Mutation Test Report

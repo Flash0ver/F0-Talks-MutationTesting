@@ -24,7 +24,7 @@ if (Test-Path -Path $TestResultsDirectory) {
 
 dotnet test $SolutionFile --collect:"XPlat Code Coverage" --settings $SettingsFile --configuration $Configuration --results-directory $TestResultsDirectory
 
-dotnet tool run reportgenerator -reports:$CoverageReports -targetdir:$ReportTargetDirectory -reporttypes:HtmlInline_AzurePipelines
+dotnet tool run reportgenerator -reports:$CoverageReports -targetdir:$ReportTargetDirectory -verbosity:Info -reporttypes:HtmlInline_AzurePipelines
 
 if ($OpenReport) {
     Invoke-Item -Path $ReportFile
