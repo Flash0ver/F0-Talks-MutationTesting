@@ -1,32 +1,31 @@
 ﻿using F0.Talks.MutationTesting.Diagnostics;
 using Xunit;
 
-namespace F0.Talks.MutationTesting.Tests.Diagnostics
+namespace F0.Talks.MutationTesting.Tests.Diagnostics;
+
+public class ArrayExtensionsTests
 {
-	public class ArrayExtensionsTests
+	[Fact]
+	public void EnsureNotNull_KeepIfNotNull()
 	{
-		[Fact]
-		public void EnsureNotNull_KeepIfNotNull()
-		{
-			string[] array = { string.Empty };
+		string[] array = { string.Empty };
 
-			int hashCode = array.GetHashCode();
+		int hashCode = array.GetHashCode();
 
-			ArrayExtensions.EnsureNotNull(ref array);
+		ArrayExtensions.EnsureNotNull(ref array);
 
-			Assert.Equal(hashCode, array.GetHashCode());
-		}
+		Assert.Equal(hashCode, array.GetHashCode());
+	}
 
-		[Fact]
-		public void EnsureNotNull_InitializeIfNull()
-		{
-			string[]? array = null;
+	[Fact]
+	public void EnsureNotNull_InitializeIfNull()
+	{
+		string[]? array = null;
 
-			ArrayExtensions.EnsureNotNull(ref array);
+		ArrayExtensions.EnsureNotNull(ref array);
 
-			Assert.NotNull(array);
-			Assert.Equal(1, array.Rank);
-			Assert.Empty(array);
-		}
+		Assert.NotNull(array);
+		Assert.Equal(1, array.Rank);
+		Assert.Empty(array);
 	}
 }

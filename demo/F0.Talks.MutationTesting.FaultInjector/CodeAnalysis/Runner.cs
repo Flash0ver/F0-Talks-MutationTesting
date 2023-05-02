@@ -14,175 +14,174 @@ using Spectre.Console;
 using Xunit;
 using Xunit.Sdk;
 
-namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
+namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis;
+
+internal static class Runner
 {
-	internal static class Runner
+	private static readonly Type fact = typeof(FactAttribute);
+
+	public static async Task RunAsync(Source source, Compiler compiler)
 	{
-		private static readonly Type fact = typeof(FactAttribute);
-
-		public static async Task RunAsync(Source source, Compiler compiler)
+		if (await InitialTestAsync(compiler))
 		{
-			if (await InitialTestAsync(compiler))
-			{
-				return;
-			}
-
-			IReadOnlyCollection<Mutation> mutants = await Mutator.MutateAsync(source.Production);
-			int padding = mutants.Count.ToString().Length;
-
-			var report = new Report();
-			int i = 0;
-			foreach (IGrouping<SyntaxNode, Mutation> group in mutants.GroupBy(static mutant => mutant.OriginalNode))
-			{
-				SyntaxNode mutated = group.Key;
-				AnsiConsole.MarkupLine($"[bold]{mutated}[/]");
-
-				foreach (Mutation mutant in group)
-				{
-					bool hasFailed = await MutationTestAsync(compiler, i++, mutant, padding);
-
-					report.Increment(hasFailed);
-				}
-			}
-
-			report.WriteToConsole();
+			return;
 		}
 
-		private static async Task<bool> InitialTestAsync(Compiler compiler)
+		IReadOnlyCollection<Mutation> mutants = await Mutator.MutateAsync(source.Production);
+		int padding = mutants.Count.ToString().Length;
+
+		var report = new Report();
+		int i = 0;
+		foreach (IGrouping<SyntaxNode, Mutation> group in mutants.GroupBy(static mutant => mutant.OriginalNode))
 		{
-			CSharpCompilation compilation = compiler.Compile();
+			SyntaxNode mutated = group.Key;
+			AnsiConsole.MarkupLine($"[bold]{mutated}[/]");
 
-			AssemblyLoadContext context = await EmitAssemblyAsync(compilation);
-			Assembly assembly = context.Assemblies.Single();
-
-			bool hasFailed = RunTest(assembly);
-			if (hasFailed)
+			foreach (Mutation mutant in group)
 			{
-				var style = new Style(Color.Red);
-				AnsiConsole.Console.WriteLine("At least one test is failing!", style);
+				bool hasFailed = await MutationTestAsync(compiler, i++, mutant, padding);
+
+				report.Increment(hasFailed);
 			}
-
-			context.Unload();
-
-			return hasFailed;
 		}
 
-		private static async Task<bool> MutationTestAsync(Compiler compiler, int id, Mutation mutant, int padding)
+		report.WriteToConsole();
+	}
+
+	private static async Task<bool> InitialTestAsync(Compiler compiler)
+	{
+		CSharpCompilation compilation = compiler.Compile();
+
+		AssemblyLoadContext context = await EmitAssemblyAsync(compilation);
+		Assembly assembly = context.Assemblies.Single();
+
+		bool hasFailed = RunTest(assembly);
+		if (hasFailed)
 		{
-			CSharpCompilation compilation = compiler.Compile(id, mutant.MutatedTree);
+			var style = new Style(Color.Red);
+			AnsiConsole.Console.WriteLine("At least one test is failing!", style);
+		}
 
-			AssemblyLoadContext context = await EmitAssemblyAsync(compilation);
-			Assembly assembly = context.Assemblies.Single();
+		context.Unload();
 
-			bool hasFailed = RunTest(assembly);
-			if (hasFailed)
+		return hasFailed;
+	}
+
+	private static async Task<bool> MutationTestAsync(Compiler compiler, int id, Mutation mutant, int padding)
+	{
+		CSharpCompilation compilation = compiler.Compile(id, mutant.MutatedTree);
+
+		AssemblyLoadContext context = await EmitAssemblyAsync(compilation);
+		Assembly assembly = context.Assemblies.Single();
+
+		bool hasFailed = RunTest(assembly);
+		if (hasFailed)
+		{
+			AnsiConsole.MarkupLine($"\t{id.ToString($"D{padding}")}: Mutant [green]{mutant.MutatedNode}[/] killed");
+		}
+		else
+		{
+			AnsiConsole.MarkupLine($"\t{id.ToString($"D{padding}")}: Mutant [red]{mutant.MutatedNode}[/] survived");
+		}
+
+		context.Unload();
+
+		return hasFailed;
+	}
+
+	private static async Task<AssemblyLoadContext> EmitAssemblyAsync(CSharpCompilation compilation)
+	{
+		await using (var stream = new MemoryStream())
+		{
+			EmitResult result = compilation.Emit(stream);
+
+			if (result.Success)
 			{
-				AnsiConsole.MarkupLine($"\t{id.ToString($"D{padding}")}: Mutant [green]{mutant.MutatedNode}[/] killed");
+				long position = stream.Seek(0, SeekOrigin.Begin);
+				Debug.Assert(position == 0);
+
+				var context = new AssemblyLoadContext(null, true);
+				_ = context.LoadFromStream(stream);
+				return context;
 			}
 			else
 			{
-				AnsiConsole.MarkupLine($"\t{id.ToString($"D{padding}")}: Mutant [red]{mutant.MutatedNode}[/] survived");
-			}
+				IEnumerable<Diagnostic> diagnostics = result.Diagnostics
+					.Where(static diagnostic => diagnostic.Severity is not DiagnosticSeverity.Hidden);
 
-			context.Unload();
+				Table table = new Table()
+					.AddColumn("")
+					.AddColumn("Code")
+					.AddColumn("Description");
 
-			return hasFailed;
-		}
-
-		private static async Task<AssemblyLoadContext> EmitAssemblyAsync(CSharpCompilation compilation)
-		{
-			await using (var stream = new MemoryStream())
-			{
-				EmitResult result = compilation.Emit(stream);
-
-				if (result.Success)
+				foreach (Diagnostic diagnostic in diagnostics)
 				{
-					long position = stream.Seek(0, SeekOrigin.Begin);
-					Debug.Assert(position == 0);
-
-					var context = new AssemblyLoadContext(null, true);
-					_ = context.LoadFromStream(stream);
-					return context;
+					table.AddRow(Severity(diagnostic.Severity), diagnostic.Id, diagnostic.GetMessage());
 				}
-				else
-				{
-					IEnumerable<Diagnostic> diagnostics = result.Diagnostics
-						.Where(static diagnostic => diagnostic.Severity is not DiagnosticSeverity.Hidden);
 
-					Table table = new Table()
-						.AddColumn("")
-						.AddColumn("Code")
-						.AddColumn("Description");
+				AnsiConsole.Render(table);
 
-					foreach (Diagnostic diagnostic in diagnostics)
-					{
-						table.AddRow(Severity(diagnostic.Severity), diagnostic.Id, diagnostic.GetMessage());
-					}
-
-					AnsiConsole.Render(table);
-
-					throw new ArgumentException($"{nameof(Compilation)}", nameof(compilation));
-				}
+				throw new ArgumentException($"{nameof(Compilation)}", nameof(compilation));
 			}
 		}
+	}
 
-		private static string Severity(DiagnosticSeverity severity)
+	private static string Severity(DiagnosticSeverity severity)
+	{
+		return severity switch
 		{
-			return severity switch
-			{
-				DiagnosticSeverity.Info => $"[blue]i[/]",
-				DiagnosticSeverity.Warning => $"[yellow]![/]",
-				DiagnosticSeverity.Error => $"[red]x[/]",
-				_ => throw new InvalidEnumArgumentException(nameof(severity), (int)severity, typeof(DiagnosticSeverity)),
-			};
-		}
+			DiagnosticSeverity.Info => $"[blue]i[/]",
+			DiagnosticSeverity.Warning => $"[yellow]![/]",
+			DiagnosticSeverity.Error => $"[red]x[/]",
+			_ => throw new InvalidEnumArgumentException(nameof(severity), (int)severity, typeof(DiagnosticSeverity)),
+		};
+	}
 
-		private static bool RunTest(Assembly assembly)
+	private static bool RunTest(Assembly assembly)
+	{
+		Type? type = assembly.GetType("F0.Talks.MutationTesting.Tests.Mathematics.CalculatorTests");
+		Debug.Assert(type is not null);
+
+		object? instance = Activator.CreateInstance(type);
+		Debug.Assert(instance is not null);
+
+		IEnumerable<MethodInfo> methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public);
+		IEnumerable<MethodInfo> tests = methods.Where(static method => method.CustomAttributes.Any(static attribute => attribute.AttributeType == fact));
+
+		bool hasFailed = false;
+
+		foreach (MethodInfo test in tests)
 		{
-			Type? type = assembly.GetType("F0.Talks.MutationTesting.Tests.Mathematics.CalculatorTests");
-			Debug.Assert(type is not null);
-
-			object? instance = Activator.CreateInstance(type);
-			Debug.Assert(instance is not null);
-
-			IEnumerable<MethodInfo> methods = type.GetMethods(BindingFlags.Instance | BindingFlags.Public);
-			IEnumerable<MethodInfo> tests = methods.Where(static method => method.CustomAttributes.Any(static attribute => attribute.AttributeType == fact));
-
-			bool hasFailed = false;
-
-			foreach (MethodInfo test in tests)
+			if (InvokeTest(test, instance) is not null)
 			{
-				if (InvokeTest(test, instance) is not null)
-				{
-					hasFailed = true;
-					break;
-				}
+				hasFailed = true;
+				break;
 			}
-
-			return hasFailed;
 		}
 
-		private static Exception? InvokeTest(MethodInfo method, object obj)
+		return hasFailed;
+	}
+
+	private static Exception? InvokeTest(MethodInfo method, object obj)
+	{
+		Exception? exception = null;
+
+		try
 		{
-			Exception? exception = null;
+			object? value = method.Invoke(obj, Array.Empty<object>());
 
-			try
-			{
-				object? value = method.Invoke(obj, Array.Empty<object>());
-
-				Debug.Assert(value is null);
-			}
-			catch (TargetInvocationException ex) when (ex.InnerException is AssertActualExpectedException)
-			{
-				exception = ex;
-			}
-			catch (Exception ex)
-			{
-				AnsiConsole.WriteException(ex);
-				throw;
-			}
-
-			return exception;
+			Debug.Assert(value is null);
 		}
+		catch (TargetInvocationException ex) when (ex.InnerException is AssertActualExpectedException)
+		{
+			exception = ex;
+		}
+		catch (Exception ex)
+		{
+			AnsiConsole.WriteException(ex);
+			throw;
+		}
+
+		return exception;
 	}
 }

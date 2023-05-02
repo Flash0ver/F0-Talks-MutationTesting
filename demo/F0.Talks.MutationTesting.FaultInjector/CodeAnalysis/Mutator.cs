@@ -3,18 +3,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 
-namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis
+namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis;
+
+internal static class Mutator
 {
-	internal static class Mutator
+	public static async Task<IReadOnlyCollection<Mutation>> MutateAsync(SyntaxTree original)
 	{
-		public static async Task<IReadOnlyCollection<Mutation>> MutateAsync(SyntaxTree original)
-		{
-			SyntaxNode root = await original.GetRootAsync(CancellationToken.None);
+		SyntaxNode root = await original.GetRootAsync(CancellationToken.None);
 
-			var visitor = new MutationVisitor();
-			visitor.Visit(root);
+		var visitor = new MutationVisitor();
+		visitor.Visit(root);
 
-			return visitor.Mutations;
-		}
+		return visitor.Mutations;
 	}
 }

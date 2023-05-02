@@ -1,7 +1,6 @@
-﻿namespace F0.Talks.MutationTesting.Generic
+﻿namespace F0.Talks.MutationTesting.Generic;
+
+public interface ICovariant<out T>
 {
-	public interface ICovariant<out T>
-	{
-		T Get();
-	}
+	T Get();
 }

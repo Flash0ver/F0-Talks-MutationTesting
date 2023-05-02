@@ -2,62 +2,61 @@
 using F0.Talks.MutationTesting.Diagnostics;
 using Xunit;
 
-namespace F0.Talks.MutationTesting.Tests.Diagnostics
+namespace F0.Talks.MutationTesting.Tests.Diagnostics;
+
+public class ObjectExtensionsTests
 {
-	public class ObjectExtensionsTests
+	[Fact]
+	public void ThrowIfNull_DoesNotThrowIfNotNull_WithArgumentName()
 	{
-		[Fact]
-		public void ThrowIfNull_DoesNotThrowIfNotNull_WithArgumentName()
-		{
-			string text = string.Empty;
+		string text = string.Empty;
 
-			text.ThrowIfNull(nameof(text));
+		text.ThrowIfNull(nameof(text));
 
-			Assert.Empty(text);
-		}
+		Assert.Empty(text);
+	}
 
-		[Fact]
-		public void ThrowIfNull_DoesNotThrowIfNotNull_WithoutArgumentName()
-		{
-			string text = string.Empty;
+	[Fact]
+	public void ThrowIfNull_DoesNotThrowIfNotNull_WithoutArgumentName()
+	{
+		string text = string.Empty;
 
-			text.ThrowIfNull();
+		text.ThrowIfNull();
 
-			Assert.Empty(text);
-		}
+		Assert.Empty(text);
+	}
 
-		[Fact]
-		public void ThrowIfNull_DoesNotThrowIfNotNull_NullArgumentName()
-		{
-			string text = string.Empty;
+	[Fact]
+	public void ThrowIfNull_DoesNotThrowIfNotNull_NullArgumentName()
+	{
+		string text = string.Empty;
 
-			text.ThrowIfNull(null);
+		text.ThrowIfNull(null);
 
-			Assert.Empty(text);
-		}
+		Assert.Empty(text);
+	}
 
-		[Fact]
-		public void ThrowIfNull_DoesThrowIfNull_WithArgumentName()
-		{
-			string? text = null;
+	[Fact]
+	public void ThrowIfNull_DoesThrowIfNull_WithArgumentName()
+	{
+		string? text = null;
 
-			Assert.Throws<ArgumentNullException>("text", () => text.ThrowIfNull(nameof(text)));
-		}
+		Assert.Throws<ArgumentNullException>("text", () => text.ThrowIfNull(nameof(text)));
+	}
 
-		[Fact]
-		public void ThrowIfNull_DoesThrowIfNull_WithoutArgumentName()
-		{
-			string? text = null;
+	[Fact]
+	public void ThrowIfNull_DoesThrowIfNull_WithoutArgumentName()
+	{
+		string? text = null;
 
-			Assert.Throws<ArgumentNullException>("text", () => text.ThrowIfNull());
-		}
+		Assert.Throws<ArgumentNullException>("text", () => text.ThrowIfNull());
+	}
 
-		[Fact]
-		public void ThrowIfNull_DoesThrowIfNull_NullArgumentName()
-		{
-			string? text = null;
+	[Fact]
+	public void ThrowIfNull_DoesThrowIfNull_NullArgumentName()
+	{
+		string? text = null;
 
-			Assert.Throws<ArgumentNullException>(null, () => text.ThrowIfNull(null));
-		}
+		Assert.Throws<ArgumentNullException>(null, () => text.ThrowIfNull(null));
 	}
 }
