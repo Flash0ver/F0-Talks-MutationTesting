@@ -1,20 +1,20 @@
-﻿using System.Collections.Immutable;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using Basic.Reference.Assemblies;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Testing;
 using Xunit;
 
 namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis;
 
 internal sealed class Compiler
 {
-	public static async Task<Compiler> CreateAsync(Source source)
+	public static Compiler Create(Source source)
 	{
-		ImmutableArray<MetadataReference> referenceAssembly = await CreateReferenceAssembliesAsync();
+		ImmutableArray<MetadataReference> referenceAssemblies = CreateReferenceAssemblies();
 
-		return new Compiler(source, referenceAssembly);
+		return new Compiler(source, referenceAssemblies);
 	}
 
 	private readonly Source source;
@@ -44,15 +44,15 @@ internal sealed class Compiler
 			.WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 	}
 
-	private static async Task<ImmutableArray<MetadataReference>> CreateReferenceAssembliesAsync()
+	private static ImmutableArray<MetadataReference> CreateReferenceAssemblies()
 	{
-		ReferenceAssemblies referenceAssemblies = ReferenceAssemblies.Net.Net60;
-
-		ImmutableArray<MetadataReference> references = await referenceAssemblies.ResolveAsync(LanguageNames.CSharp, CancellationToken.None);
+		IEnumerable<PortableExecutableReference> net60 = Net60.References.All;
 
 		PortableExecutableReference xunit = MetadataReference.CreateFromFile(typeof(FactAttribute).Assembly.Location);
 		PortableExecutableReference assert = MetadataReference.CreateFromFile(typeof(Assert).Assembly.Location);
 
-		return references.AddRange(new[] { xunit, assert });
+		IEnumerable<PortableExecutableReference> references = net60.Append(xunit).Append(assert);
+
+		return ImmutableArray.CreateRange<MetadataReference>(references);
 	}
 }

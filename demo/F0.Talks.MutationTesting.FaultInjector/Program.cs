@@ -28,7 +28,7 @@ internal static class Program
 		}
 
 		Source source = await Source.CreateAsync(production, test);
-		Compiler compiler = await Compiler.CreateAsync(source);
+		Compiler compiler = Compiler.Create(source);
 		await Runner.RunAsync(source, compiler);
 	}
 }
