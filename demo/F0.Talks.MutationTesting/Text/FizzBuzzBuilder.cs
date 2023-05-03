@@ -8,10 +8,6 @@ namespace F0.Talks.MutationTesting.Text;
 
 public static class FizzBuzzBuilder
 {
-	private static readonly string Fizz = "Fizz";
-	private static readonly string Buzz = "Buzz";
-	private static readonly string FizzBuzz = "FizzBuzz";
-
 	public static IEnumerable<string> EnumerateFizzBuzz(int start, int count)
 	{
 		IEnumerable<int> numbers = Enumerable.Range(start, count);
@@ -28,15 +24,15 @@ public static class FizzBuzzBuilder
 
 				if (isFizz && isBuzz)
 				{
-					yield return FizzBuzz;
+					yield return "FizzBuzz";
 				}
 				else if (isFizz)
 				{
-					yield return Fizz;
+					yield return "Fizz";
 				}
 				else if (isBuzz)
 				{
-					yield return Buzz;
+					yield return "Buzz";
 				}
 				else
 				{
