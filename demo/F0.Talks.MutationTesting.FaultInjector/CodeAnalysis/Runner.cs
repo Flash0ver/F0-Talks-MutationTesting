@@ -119,7 +119,7 @@ internal static class Runner
 					table.AddRow(Severity(diagnostic.Severity), diagnostic.Id, diagnostic.GetMessage());
 				}
 
-				AnsiConsole.Render(table);
+				AnsiConsole.Write(table);
 
 				throw new ArgumentException($"{nameof(Compilation)}", nameof(compilation));
 			}

@@ -57,6 +57,6 @@ public class ObjectExtensionsTests
 	{
 		string? text = null;
 
-		Assert.Throws<ArgumentNullException>(null, () => text.ThrowIfNull(null));
+		Assert.Throws<ArgumentNullException>(() => text.ThrowIfNull(null));
 	}
 }

@@ -47,6 +47,6 @@ internal sealed class Report
 
 		table.AddRow($"[purple]{Mutants} (100 %)[/]", $"[green]{Killed} ({killedPercent} %)[/]", $"[red]{Survived} ({survivedPercent} %)[/]");
 
-		AnsiConsole.Render(table);
+		AnsiConsole.Write(table);
 	}
 }
