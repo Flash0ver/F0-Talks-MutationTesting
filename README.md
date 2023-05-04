@@ -3,6 +3,10 @@ My talk on mutation testing in .NET (C#).
 
 ## Let none survive! - How to test our unit tests with mutation testing
 
+### 2023-05-04: JetBrains Webinar
+- [Event site](https://blog.jetbrains.com/dotnet/2023/04/17/webinar-stefan-polz-how-to-test-csharp-unit-tests-with-mutation-testing/)
+- [Recording](https://www.youtube.com/watch?v=9BoKyeZapLs)
+
 ### 2022-08-16: DotNetDevs.at - Lightning Talks
 - [Organizer site](https://dotnetdevs.at/)
 - [Meetup page](https://www.meetup.com/dotnet-austria/events/287587456/)
@@ -33,5 +37,5 @@ My talk on mutation testing in .NET (C#).
 
 ### 2020-11-25: .NET South West
 - [Meetup page](https://www.meetup.com/dotnetsouthwest/events/273278637/)
-- [Recording of Talk](https://www.youtube.com/watch?v=zbOnygEeFLU)
+- [Recording](https://www.youtube.com/watch?v=zbOnygEeFLU)
 - [Lightning Talks Playlist](https://www.youtube.com/playlist?list=PL-qmyXuxfTUFpWZdna_0_2ItFfGtlSAQ_)
