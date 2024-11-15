@@ -172,7 +172,7 @@ internal static class Runner
 
 			Debug.Assert(value is null);
 		}
-		catch (TargetInvocationException ex) when (ex.InnerException is AssertActualExpectedException)
+		catch (TargetInvocationException ex) when (ex.InnerException is XunitException)
 		{
 			exception = ex;
 		}
