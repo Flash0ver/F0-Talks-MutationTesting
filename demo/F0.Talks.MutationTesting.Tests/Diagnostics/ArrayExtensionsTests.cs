@@ -8,7 +8,7 @@ public class ArrayExtensionsTests
 	[Fact]
 	public void EnsureNotNull_KeepIfNotNull()
 	{
-		string[] array = { string.Empty };
+		string[] array = [string.Empty];
 
 		int hashCode = array.GetHashCode();
 

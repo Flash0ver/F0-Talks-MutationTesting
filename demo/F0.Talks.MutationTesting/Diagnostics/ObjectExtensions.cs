@@ -7,7 +7,7 @@ namespace F0.Talks.MutationTesting.Diagnostics;
 
 public static class ObjectExtensions
 {
-	public static void ThrowIfNull<T>([NotNull] this T? obj, [CallerArgumentExpression("obj")] string? paramName = null)
+	public static void ThrowIfNull<T>([NotNull] this T? obj, [CallerArgumentExpression(nameof(obj))] string? paramName = null)
 	{
 		bool condition = true;
 

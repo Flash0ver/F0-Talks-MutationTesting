@@ -91,38 +91,36 @@ internal static class Runner
 
 	private static async Task<AssemblyLoadContext> EmitAssemblyAsync(CSharpCompilation compilation)
 	{
-		await using (var stream = new MemoryStream())
+		await using var stream = new MemoryStream();
+		EmitResult result = compilation.Emit(stream);
+
+		if (result.Success)
 		{
-			EmitResult result = compilation.Emit(stream);
+			long position = stream.Seek(0, SeekOrigin.Begin);
+			Debug.Assert(position == 0);
 
-			if (result.Success)
+			var context = new AssemblyLoadContext(null, true);
+			_ = context.LoadFromStream(stream);
+			return context;
+		}
+		else
+		{
+			IEnumerable<Diagnostic> diagnostics = result.Diagnostics
+				.Where(static diagnostic => diagnostic.Severity is not DiagnosticSeverity.Hidden);
+
+			Table table = new Table()
+				.AddColumn("")
+				.AddColumn("Code")
+				.AddColumn("Description");
+
+			foreach (Diagnostic diagnostic in diagnostics)
 			{
-				long position = stream.Seek(0, SeekOrigin.Begin);
-				Debug.Assert(position == 0);
-
-				var context = new AssemblyLoadContext(null, true);
-				_ = context.LoadFromStream(stream);
-				return context;
+				table.AddRow(Severity(diagnostic.Severity), diagnostic.Id, diagnostic.GetMessage());
 			}
-			else
-			{
-				IEnumerable<Diagnostic> diagnostics = result.Diagnostics
-					.Where(static diagnostic => diagnostic.Severity is not DiagnosticSeverity.Hidden);
 
-				Table table = new Table()
-					.AddColumn("")
-					.AddColumn("Code")
-					.AddColumn("Description");
+			AnsiConsole.Write(table);
 
-				foreach (Diagnostic diagnostic in diagnostics)
-				{
-					table.AddRow(Severity(diagnostic.Severity), diagnostic.Id, diagnostic.GetMessage());
-				}
-
-				AnsiConsole.Write(table);
-
-				throw new ArgumentException($"{nameof(Compilation)}", nameof(compilation));
-			}
+			throw new ArgumentException($"{nameof(Compilation)}", nameof(compilation));
 		}
 	}
 
@@ -168,7 +166,7 @@ internal static class Runner
 
 		try
 		{
-			object? value = method.Invoke(obj, Array.Empty<object>());
+			object? value = method.Invoke(obj, []);
 
 			Debug.Assert(value is null);
 		}

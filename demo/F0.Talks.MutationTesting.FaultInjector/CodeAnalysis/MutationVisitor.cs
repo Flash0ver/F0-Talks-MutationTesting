@@ -8,7 +8,7 @@ namespace F0.Talks.MutationTesting.FaultInjector.CodeAnalysis;
 
 internal sealed class MutationVisitor : CSharpSyntaxWalker
 {
-	private readonly List<Mutation> mutations = new();
+	private readonly List<Mutation> mutations = [];
 
 	public IReadOnlyCollection<Mutation> Mutations => mutations;
 
