@@ -15,7 +15,7 @@ env:
 jobs:
   verify_markdown:
     name: Verify Markdown files
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     env:
       NuGet_Configuration_File: ./nuget.config
@@ -23,9 +23,11 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4.2.2
+      with:
+        fetch-depth: 1
     - name: Setup .NET SDKs
-      uses: actions/setup-dotnet@v3.0.3
+      uses: actions/setup-dotnet@v4.1.0
       with:
         dotnet-version: '3.1.426'
         global-json-file: 'global.json'
