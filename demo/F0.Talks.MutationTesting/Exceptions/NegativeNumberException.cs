@@ -34,19 +34,3 @@ public partial class NegativeNumberException : Exception
 
 	public int? Number { get; }
 }
-
-[Serializable]
-public partial class NegativeNumberException : Exception
-{
-	protected NegativeNumberException(SerializationInfo info, StreamingContext context)
-		: base(info, context)
-	{
-		Number = (int?)info.GetValue("NegativeNumber_Number", typeof(int?));
-	}
-
-	public override void GetObjectData(SerializationInfo info, StreamingContext context)
-	{
-		base.GetObjectData(info, context);
-		info.AddValue("NegativeNumber_Number", Number, typeof(int?));
-	}
-}

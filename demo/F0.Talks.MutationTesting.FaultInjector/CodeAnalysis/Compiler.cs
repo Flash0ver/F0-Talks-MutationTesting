@@ -46,12 +46,12 @@ internal sealed class Compiler
 
 	private static ImmutableArray<MetadataReference> CreateReferenceAssemblies()
 	{
-		IEnumerable<PortableExecutableReference> net60 = Net60.References.All;
+		IEnumerable<PortableExecutableReference> net80 = Net80.References.All;
 
 		PortableExecutableReference xunit = MetadataReference.CreateFromFile(typeof(FactAttribute).Assembly.Location);
 		PortableExecutableReference assert = MetadataReference.CreateFromFile(typeof(Assert).Assembly.Location);
 
-		IEnumerable<PortableExecutableReference> references = net60.Append(xunit).Append(assert);
+		IEnumerable<PortableExecutableReference> references = net80.Append(xunit).Append(assert);
 
 		return ImmutableArray.CreateRange<MetadataReference>(references);
 	}

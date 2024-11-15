@@ -61,30 +61,4 @@ public class NegativeNumberExceptionTests
 		Assert.Equal(-2, exception.Number);
 		Assert.Equal(innerException, exception.InnerException);
 	}
-
-	[Fact]
-	public void Serialization_RoundTrip()
-	{
-		string message = "description";
-		Exception innerException = new InvalidOperationException();
-		var originalException = new NegativeNumberException(message, -3, innerException);
-
-		var restoredException = (NegativeNumberException)RoundTrip(originalException);
-
-		Assert.NotSame(originalException, restoredException);
-		Assert.NotSame(innerException, restoredException.InnerException);
-		Assert.Equal(message, restoredException.Message);
-		Assert.Equal(-3, restoredException.Number);
-		Assert.Equal(innerException.Message, restoredException.InnerException!.Message);
-
-		static object RoundTrip(object graph)
-		{
-			using Stream stream = new MemoryStream();
-			IFormatter formatter = new BinaryFormatter();
-			formatter.Serialize(stream, graph);
-
-			_ = stream.Seek(0, SeekOrigin.Begin);
-			return formatter.Deserialize(stream);
-		}
-	}
 }
