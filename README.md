@@ -3,6 +3,12 @@ My talk on mutation testing in .NET (C#).
 
 ## Let none survive! - How to test our unit tests with mutation testing
 
+### 2024-11-15: Update Conference Prague 2024
+- Venue: _Clarion Congress Hotel Prague_
+- [Update Conference Prague](https://prague.updateconference.net/)
+- [Update Conference Prague 2024](https://prague.updateconference.net/en/about-update-2024)
+- [Update Conference Prague 2024 Schedule](https://prague.updateconference.net/en/2024/schedule/)
+
 ### 2023-05-04: JetBrains Webinar
 - [Event page](https://blog.jetbrains.com/dotnet/2023/04/17/webinar-stefan-polz-how-to-test-csharp-unit-tests-with-mutation-testing/)
 - [Show notes](https://blog.jetbrains.com/dotnet/2023/05/05/stefan-polz-how-to-test-csharp-unit-tests-with-mutation-testing-webinar-recording/)
